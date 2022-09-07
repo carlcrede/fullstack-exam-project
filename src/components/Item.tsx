@@ -1,6 +1,6 @@
 export interface MovieDetails {
     title: string;
-    key: number;
+    id: number;
 }
 
 function Item(props: MovieDetails) {
