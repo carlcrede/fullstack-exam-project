@@ -1,20 +1,29 @@
-import { useId } from "react";
+import { useEffect, useId, useState } from "react";
 import Item from "./Item";
-import { MovieDetails } from "./Item";
-
-const items: MovieDetails[] = [
-    { title: 'Spider Man', id: 123 } as MovieDetails, 
-    { title: 'Forest Gump', id: 321 } as MovieDetails
-];
+import MovieDataService from '../services/Movies.service';
+import { MovieResult } from "../types/request-types";
 
 function ItemsContainer(): JSX.Element {
+    const [movies, setMovies] = useState<MovieResult[]>([]);
     const id = useId();
-    const itemList = items.map((item) => {
+
+    useEffect(() => {
+        loadMovies();
+    }, [])
+
+    const loadMovies = () => {
+        MovieDataService.getAll().then(res => {
+            setMovies(res.data.results as MovieResult[]);
+        });
+    }
+
+    const movieList = movies.map((item) => {
         return <Item key={`${id}-${item.id}`} {...item} />
     });
+
     return (
-        <div className="flex flex-row space-x-4 justify-center basis-1">
-            {itemList}
+        <div className="flex flex-row flex-wrap gap-4 justify-center">
+            {movieList}
         </div>
     );
 }
