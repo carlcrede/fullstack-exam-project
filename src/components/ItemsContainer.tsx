@@ -1,11 +1,12 @@
 import React, { useEffect, useId, useState } from "react";
 import Item from "./Item";
 import MovieDataService from '../services/Movies.service';
-import { MovieResult } from "../types/request-types";
+import TvDataService from '../services/Tv.service';
+import { MovieResult, TvResult } from "../types/request-types";
 import InfiniteScroll from 'react-infinite-scroller';
 
 function ItemsContainer(): JSX.Element {
-    const [movies, setMovies] = useState<MovieResult[]>([]);
+    const [movies, setMovies] = useState<(MovieResult | TvResult)[]>([]);
     const [currPage, setCurrPage] = useState(1);
     const [prevPage, setPrevPage] = useState(2);
     const [fetching, setFetching] = useState(false);
@@ -14,9 +15,9 @@ function ItemsContainer(): JSX.Element {
 
     const loadMovies = () => {
         if (fetching) return;
-        MovieDataService.getAll(currPage).then(res => {
+        TvDataService.getAll(currPage).then(res => {
             setFetching(true);
-            setMovies([...movies, ...res.data.results as MovieResult[]]);
+            setMovies([...movies, ...res.data.results ?? []]);
             setCurrPage(currPage + 1);
             setFetching(false);
         });
