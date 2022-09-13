@@ -11,37 +11,37 @@ export interface PagedRequestParams extends IdRequestParams {
     page?: number;
 }
 export interface MovieResult {
-    poster_path?: string;
-    adult?: boolean;
-    overview?: string;
-    release_date?: string;
-    genre_ids?: Array<number>;
-    id?: number;
     media_type: 'movie';
+    id?: number;
+    title?: string;
     original_title?: string;
     original_language?: string;
-    title?: string;
+    overview?: string;
+    poster_path?: string;
     backdrop_path?: string;
     popularity?: number;
+    release_date?: string;
+    genre_ids?: Array<number>;
     vote_count?: number;
-    video?: boolean;
     vote_average?: number;
+    video?: boolean;
+    adult?: boolean;
 }
 export interface TvResult {
-    poster_path?: string;
-    popularity?: number;
-    id?: number;
-    overview?: string;
-    backdrop_path?: string;
-    vote_average?: number;
     media_type: 'tv';
-    first_air_date?: string;
-    origin_country?: Array<string>;
-    genre_ids?: Array<number>;
-    original_language?: string;
-    vote_count?: number;
+    id?: number;
     name?: string;
     original_name?: string;
+    original_language?: string;
+    overview?: string;
+    poster_path?: string;
+    backdrop_path?: string;
+    popularity?: number;
+    first_air_date?: string;
+    genre_ids?: Array<number>;
+    vote_count?: number;
+    vote_average?: number;
+    origin_country?: Array<string>;
 }
 export interface PersonResult {
     profile_path?: string;
