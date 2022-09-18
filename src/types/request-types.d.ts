@@ -11,7 +11,7 @@ export interface PagedRequestParams extends IdRequestParams {
     page?: number;
 }
 export interface MovieResult {
-    media_type: 'movie';
+    media_type: string = 'movie';
     id?: number;
     title?: string;
     original_title?: string;
@@ -28,7 +28,7 @@ export interface MovieResult {
     adult?: boolean;
 }
 export interface TvResult {
-    media_type: 'tv';
+    media_type: string = 'tv';
     id?: number;
     name?: string;
     original_name?: string;
@@ -42,6 +42,10 @@ export interface TvResult {
     vote_count?: number;
     vote_average?: number;
     origin_country?: Array<string>;
+}
+
+export interface MovieAndTvMixedResult extends PaginatedResponse {
+    results?: Array<MovieResult | TvResult>;
 }
 export interface PersonResult {
     profile_path?: string;
@@ -470,7 +474,7 @@ export interface TrendingResponse extends PaginatedResponse {
 }
 export interface MovieResponse extends Response {
     adult?: boolean;
-    backdrop_path?: string;
+    backdrop_path?: string | null;
     belongs_to_collection?: object;
     budget?: number;
     genres?: Array<Genre>;
@@ -481,7 +485,7 @@ export interface MovieResponse extends Response {
     original_title?: string;
     overview?: string;
     popularity?: number;
-    poster_path?: string;
+    poster_path?: string | null;
     production_companies?: Array<ProductionCompany>;
     production_countries?: Array<ProductionCountry>;
     release_date?: string;
@@ -716,7 +720,7 @@ export interface ShowResponse extends Response {
     poster_path?: string | null;
     production_companies?: Array<ProductionCompany>;
     seasons?: Array<SimpleSeason>;
-    status?: string;
+    status?: 'Rumored' | 'Planned' | 'In Production' | 'Post Production' | 'Released' | 'Canceled';
     type?: string;
     vote_average?: number;
     vote_count?: number;
