@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { MovieResponse, MovieResult, ShowResponse, TvResult } from "../types/request-types";
+import { MovieResponse, ShowResponse } from "../types/request-types";
 
 function Item(props: MovieResponse & ShowResponse) {
     const media = (props.title) ? 'movie': 'tv';
-    const url = `${media}/${props.title || props.name}`;
+    //const url = `${media}/${props.title || props.name}`;
+    const url = `${media}/${props.id}`;
     return (
         <div className="basis-1/6 select-none">
             <div className="overflow-hidden relative">
