@@ -6,9 +6,8 @@ import { MovieResponse, MovieResult, ShowResponse } from "../types/request-types
 import InfiniteScroll from 'react-infinite-scroller';
 
 function ItemsContainer(): JSX.Element {
-    const [movies, setMovies] = useState<(MovieResponse & ShowResponse)[]>([]);
+    const [items, setItems] = useState<(MovieResponse & ShowResponse)[]>([]);
     const [currPage, setCurrPage] = useState(1);
-    const [prevPage, setPrevPage] = useState(2);
     const [fetching, setFetching] = useState(false);
 
     const id = useId();
@@ -17,26 +16,36 @@ function ItemsContainer(): JSX.Element {
         if (fetching) return;
         MovieDataService.getAll(currPage).then(res => {
             setFetching(true);
-            setMovies([...movies, ...res.data]);
+            setItems([...items, ...res.data]);
             setCurrPage(currPage + 1);
             setFetching(false);
         });
     }
 
+    const loadItems = async () => {
+        if (fetching) return;
+        setFetching(true);
+        const { data: tvItems } = await TvDataService.getAll(currPage);
+        const { data: movieItems } = await MovieDataService.getAll(currPage);
+        setItems([...items, ...tvItems, ...movieItems]);
+        setCurrPage(currPage + 1);
+        setFetching(false);
+    }
+
     useEffect(() => {
-        loadMovies();
+        loadItems();
     }, [])
 
 
-    const movieList = movies.map((item) => {
+    const movieList = items.map((item) => {
         return <Item key={`${id}-${item.id}`} {...item} />
     });
 
     return (
         <InfiniteScroll
             className="flex flex-row flex-wrap gap-4 justify-center"
-            loadMore={loadMovies}
-            hasMore={movies.length > 0}
+            loadMore={loadItems}
+            hasMore={items.length > 0}
             initialLoad={true}
         >
             {movieList}
