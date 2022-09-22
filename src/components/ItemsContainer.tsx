@@ -2,7 +2,7 @@ import React, { useEffect, useId, useState } from "react";
 import Item from "./Item";
 import MovieDataService from '../services/Movies.service';
 import TvDataService from '../services/Tv.service';
-import { MovieResponse, MovieResult, ShowResponse } from "../types/request-types";
+import { MovieResponse, ShowResponse } from "../types/request-types";
 import InfiniteScroll from 'react-infinite-scroller';
 
 function ItemsContainer(): JSX.Element {
@@ -11,16 +11,6 @@ function ItemsContainer(): JSX.Element {
     const [fetching, setFetching] = useState(false);
 
     const id = useId();
-
-    const loadMovies = () => {
-        if (fetching) return;
-        MovieDataService.getAll(currPage).then(res => {
-            setFetching(true);
-            setItems([...items, ...res.data]);
-            setCurrPage(currPage + 1);
-            setFetching(false);
-        });
-    }
 
     const loadItems = async () => {
         if (fetching) return;
@@ -32,11 +22,6 @@ function ItemsContainer(): JSX.Element {
         setFetching(false);
     }
 
-    useEffect(() => {
-        loadItems();
-    }, [])
-
-
     const movieList = items.map((item) => {
         return <Item key={`${id}-${item.id}`} {...item} />
     });
@@ -45,7 +30,7 @@ function ItemsContainer(): JSX.Element {
         <InfiniteScroll
             className="flex flex-row flex-wrap gap-4 justify-center"
             loadMore={loadItems}
-            hasMore={items.length > 0}
+            hasMore={true}
             initialLoad={true}
         >
             {movieList}
