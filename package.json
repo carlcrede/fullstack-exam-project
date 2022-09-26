@@ -13,6 +13,7 @@
     "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.36.1",
     "react-infinite-scroller": "^1.2.6",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
