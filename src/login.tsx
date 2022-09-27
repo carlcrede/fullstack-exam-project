@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {useForm} from 'react-hook-form';
-import {ErrorMessage} from '@hookform/error-message';
 import AuthService from "./services/AuthService";
 
 interface formData {
@@ -9,11 +8,20 @@ interface formData {
 }
 
 function Login() {
-    const [name, setName] = useState('Haha');
-    const {register, handleSubmit, formState: {errors}} = useForm<formData>({mode: "onChange"});
+    const [password, setPassword] = useState("")
+    const [user, setUser] = useState("")
+    const {register, handleSubmit} = useForm<formData>({mode: "onChange"});
     const onSubmit = handleSubmit(({user, password}) => {
         AuthService.login(user, password).then(r => console.log(r))
     })
+
+    function SubmitButton() {
+        if (user.length > 0 && password.length > 0) {
+            return <button className="w-full bg-blue-600 rounded text-white">Submit</button>
+        } else {
+            return <button disabled className="w-full bg-red-600 rounded text-white">Submit</button>
+        }
+    }
 
     return (
         <div className=" min-h-screen bg-gray-50 flex flex-col justify-center">
@@ -23,38 +31,23 @@ function Login() {
             <div className="max-w-md w-full mx-auto mt-4 bg-white p-8 border border-gray-300">
                 <form action="" className="space-y-6" onSubmit={onSubmit}>
                     <div>
-                        <label htmlFor="" className="text-sm font-bold text-gray-600 block">Email</label>
-                        <input {...register("user", {required: true, minLength: 6, maxLength: 20})}
-                               style={{borderColor: errors.user ? "red" : ""}}
-                               name="user" type="text"
+                        <label className="text-sm font-bold text-gray-600 block">Email</label>
+                        <input {...register("user")}
+                               name="user" type="text" onChange={e => setUser(e.target.value)}
                                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-600"
                                placeholder="Enter Username or Email"/>
-                        <ErrorMessage
-                            errors={errors}
-                            name="user"
-                            render={({message = "this is required"}) => <p>{message}</p>}
-                        />
                     </div>
                     <div>
-                        <label htmlFor="" className="text-sm font-bold text-gray-600 block ">Password</label>
-                        <input {...register("password", {
-                            required: "This is required.",
-                            minLength: 6,
-                            maxLength: 20
-                        })}
-                               style={{borderColor: errors.password ? "red" : ""}}
-                               name="password" type="password"
+                        <label className="text-sm font-bold text-gray-600 block">Password</label>
+                        <input {...register("password")}
+                               name="password" type="password" onChange={e => setPassword(e.target.value)}
                                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-600"
                                placeholder="Enter Password"/>
-                        <ErrorMessage
-                            errors={errors}
-                            name="password"
-                            render={({message}) => <p>{message}</p>}
-                        />
                     </div>
+                    // TODO: do we have this func?
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
-                            <label htmlFor="" className="text-gray-600">Remember me</label>
+                            <label className="text-gray-600">Remember me</label>
                             <input name="remember" type="checkbox" className="h-4 w-4 text-blue-300 rounded"/>
                         </div>
                         <div>
@@ -62,7 +55,7 @@ function Login() {
                         </div>
                     </div>
                     <div>
-                        <button className="w-full bg-blue-600 rounded text-white">Submit</button>
+                        <SubmitButton/>
                     </div>
                 </form>
             </div>
