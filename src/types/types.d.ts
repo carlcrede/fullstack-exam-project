@@ -62,4 +62,8 @@ export interface SpokenLanguage {
     iso_639_1?: string;
     name?: string;
 }
+export interface LoginParams {
+    user: string,
+    password: string
+}
 //# sourceMappingURL=types.d.ts.map
