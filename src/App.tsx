@@ -8,7 +8,7 @@ import TvDetails from './components/TvDetails';
 
 function App() {
   return (
-    <div className="App bg-[#060D17]">
+    <div className="App">
       <Header />
       <Routes>
         <Route path={'/'} element={<ItemsContainer />} />
