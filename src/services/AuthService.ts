@@ -1,9 +1,9 @@
 import http from '../http-common';
-import {LoginParams} from "../types/types";
 
 class AuthService {
 
-    login = async (user: string, password: string) => await http.post("/auth/login", {user, password})
+    login = async (user: string, password: string) => await http.post("/auth/login", {user, password});
+    register = async (email: string, username: string, password: string) => await http.post("/auth/register", {email, username, password})
 }
 
 export default new AuthService()

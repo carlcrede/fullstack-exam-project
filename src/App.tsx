@@ -6,6 +6,7 @@ import ItemsContainer from './components/ItemsContainer';
 import MovieDetails from './components/MovieDetails';
 import TvDetails from './components/TvDetails';
 import Login from "./login";
+import Signup from "./register";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Header />
       <Routes>
         <Route path={'/login'} element={<Login />} />
+        <Route path={'/signup'} element={<Signup />} />
         <Route path={'/'} element={<ItemsContainer />} />
         <Route path={'tv/:id'} element={<TvDetails />} />
         <Route path={'movie/:id'} element={<MovieDetails />} />
