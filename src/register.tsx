@@ -14,8 +14,12 @@ function Signup() {
     const [email, setEmail] = useState("")
     const [username, setUsername] = useState("")
     const {register, handleSubmit} = useForm<formData>({mode: "onChange"});
-    const onSubmit = handleSubmit(({email, username, password}) => {
-        AuthService.register(email, username, password).then(r => console.log(r))
+    const onSubmit = handleSubmit(async ({email, username, password}) => {
+        try {
+            await AuthService.register(email, username, password).then(r => console.log(r))
+        } catch (error) {
+            alert(error)
+        }
     })
 
     function SubmitButton() {
