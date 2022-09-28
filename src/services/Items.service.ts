@@ -1,5 +1,5 @@
 import http from '../http-common';
-import { DiscoverMovieRequest, DiscoverTvRequest, MovieResponse, ShowResponse } from '../types/request-types';
+import { MovieResponse, ShowResponse } from '../types/request-types';
 import { Filters } from '../components/ItemsContainer';
 class ItemsDataService {
     getAll = async (filters: Filters) => 
