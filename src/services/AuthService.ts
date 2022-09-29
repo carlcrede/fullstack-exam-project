@@ -4,7 +4,6 @@ class AuthService {
 
     login = async (user: string, password: string) => await http.post("/auth/login", {user, password});
     register = async (email: string, username: string, password: string) => await http.post("/auth/register", {email, username, password});
-    logout = async (userId: string) => await http.post("/auth/logout", {userId});
 }
 
 export default new AuthService()
