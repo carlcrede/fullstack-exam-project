@@ -1,11 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import FilterOptions from './FilterOptions'
+import MediaButtons from './MediaButtons'
 
-const Filters: React.FunctionComponent<any> = ({onSelectMedia}) => {
+const Filters: React.FunctionComponent<any> = ({ onSelectMedia }) => {
   return (
-    <div className="flex flex-row gap-4 justify-center">
-        <button onClick={() => onSelectMedia({movie: true, tv: true})}>All</button>
-        <button onClick={() => onSelectMedia({movie: true, tv: false})}>Movies</button>
-        <button onClick={() => onSelectMedia({movie: false, tv: true})}>Tv</button>
+    <div className="flex flex-row my-5 gap-5 justify-start">
+        <MediaButtons onSelectMedia={onSelectMedia} />
+        <FilterOptions />
     </div>
   )
 }

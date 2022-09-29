@@ -7,7 +7,7 @@ import Navbar from "./navbar";
 function App() {
 
   return (
-    <div className="App">
+    <div className="App mx-10">
       <Header />
         <Navbar/>
         <Outlet/>

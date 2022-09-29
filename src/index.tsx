@@ -18,7 +18,7 @@ root.render(
     <Router>
         <Routes>
             <Route path={'/'} element={<App />}>
-                <Route path={'/'} element={<ItemsContainer />}/>
+                <Route path={''} element={<ItemsContainer />}/>
                 <Route path={'tv/:id'} element={<TvDetails />} />
                 <Route path={'movie/:id'} element={<MovieDetails />} />
                 <Route path={'login'} element={<Login />} />
