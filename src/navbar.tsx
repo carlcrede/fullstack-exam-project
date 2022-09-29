@@ -1,5 +1,7 @@
-import React, {Component} from 'react';
-import { NavLink } from "react-router-dom";
+import React, {Component, useEffect} from 'react';
+import {Navigate, NavLink} from "react-router-dom";
+
+const logOut = () => {localStorage.setItem('token', '');}
 
 class Navbar extends Component {
     render() {
@@ -9,9 +11,8 @@ class Navbar extends Component {
                 paddingBottom: "1rem",
             }}
             >
-                // TODO: check if works or needs not null
-                {!sessionStorage.getItem('token') && this.navBarLoggedOut()}
                 {sessionStorage.getItem('token') && this.navBarLoggedIn()}
+                {!sessionStorage.getItem('token') && this.navBarLoggedOut()}
             </nav>
         );
     }
@@ -19,7 +20,7 @@ class Navbar extends Component {
     navBarLoggedIn() {
         return (
             <React.Fragment>
-                <NavLink className="nav-item nav-link" to="/logout">
+                <NavLink className="nav-item nav-link" to="/" onClick={logOut}>
                     Logout
                 </NavLink>
             </React.Fragment>
@@ -32,7 +33,7 @@ class Navbar extends Component {
                 <NavLink className="nav-item nav-link" to="/login">
                     Login
                 </NavLink>
-                <NavLink className="nav-item nav-link" to="/signup">
+                <NavLink className="nav-item nav-link" to="/register">
                     Register
                 </NavLink>
             </React.Fragment>
