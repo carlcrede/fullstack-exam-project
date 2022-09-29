@@ -10,9 +10,11 @@ import ItemsContainer from "./components/ItemsContainer";
 import TvDetails from "./components/TvDetails";
 import MovieDetails from "./components/MovieDetails";
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <Router>
@@ -21,7 +23,7 @@ root.render(
                 <Route path={''} element={<ItemsContainer />}/>
                 <Route path={'tv/:id'} element={<TvDetails />} />
                 <Route path={'movie/:id'} element={<MovieDetails />} />
-                <Route path={'login'} element={<Login />} />
+                <Route path={'login'} element={<Login/>}/>
                 <Route path={'signup'} element={<Signup />} />
                 <Route
                 path="*"
