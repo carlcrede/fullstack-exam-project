@@ -5,10 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Login from "./login";
-import Signup from "./register";
 import ItemsContainer from "./components/ItemsContainer";
 import TvDetails from "./components/TvDetails";
 import MovieDetails from "./components/MovieDetails";
+import Register from "./register";
 
 
 const root = ReactDOM.createRoot(
@@ -24,7 +24,7 @@ root.render(
                 <Route path={'tv/:id'} element={<TvDetails />} />
                 <Route path={'movie/:id'} element={<MovieDetails />} />
                 <Route path={'login'} element={<Login/>}/>
-                <Route path={'signup'} element={<Signup />} />
+                <Route path={'register'} element={<Register />} />
                 <Route
                 path="*"
                 element={
