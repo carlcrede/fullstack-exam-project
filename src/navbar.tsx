@@ -1,44 +1,43 @@
 import React, {Component, useEffect} from 'react';
 import {Navigate, NavLink} from "react-router-dom";
 
-const logOut = () => {localStorage.setItem('token', '');}
+const logOut = () => {
+    localStorage.setItem('token', '');
+}
 
-class Navbar extends Component {
-    render() {
+function Navbar()  {
+
+
         return (
-            <nav style={{
-                borderBottom: "solid 1px",
-                paddingBottom: "1rem",
-            }}
+            <nav className="flex flex-row gap-5 justify-center"
             >
-                {sessionStorage.getItem('token') && this.navBarLoggedIn()}
-                {!sessionStorage.getItem('token') && this.navBarLoggedOut()}
+                {sessionStorage.getItem('token') && navBarLoggedIn()}
+                {!sessionStorage.getItem('token') && navBarLoggedOut()}
             </nav>
         );
-    }
 
-    navBarLoggedIn() {
-        return (
-            <React.Fragment>
-                <NavLink className="nav-item nav-link" to="/" onClick={logOut}>
-                    Logout
-                </NavLink>
-            </React.Fragment>
-        );
-    }
+}
+function navBarLoggedIn() {
+    return (
+        <React.Fragment>
+            <NavLink className="nav-item nav-link" to="/" onClick={logOut}>
+                Logout
+            </NavLink>
+        </React.Fragment>
+    );
+}
 
-    navBarLoggedOut() {
-        return (
-            <React.Fragment>
-                <NavLink className="nav-item nav-link" to="/login">
-                    Login
-                </NavLink>
-                <NavLink className="nav-item nav-link" to="/register">
-                    Register
-                </NavLink>
-            </React.Fragment>
-        );
-    }
+function navBarLoggedOut() {
+    return (
+        <React.Fragment>
+            <NavLink className="nav-item nav-link" to="/login">
+                Login
+            </NavLink>
+            <NavLink className="nav-item nav-link" to="/register">
+                Register
+            </NavLink>
+        </React.Fragment>
+    );
 }
 
 export default Navbar;

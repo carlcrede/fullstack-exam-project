@@ -3,10 +3,13 @@ import AuthService from "./services/AuthService";
 import {Formik, Field, Form, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import IUser from "./types/user";
+import {useNavigate} from "react-router-dom";
 
 const Register: React.FC = () => {
     const [successful, setSuccessful] = useState<boolean>(false);
-    const [message, setMessage] = useState<string>("");
+    const [errorMessages, setErrorMessages] = useState<Array<any>>();
+    const [successMessage, setSuccessMessage] = useState("");
+    const navigate = useNavigate();
 
     const initialValues: IUser = {
         username: "",
@@ -18,11 +21,10 @@ const Register: React.FC = () => {
         username: Yup.string()
             .test(
                 "len",
-                "The username must be between 5 and 20 characters.",
+                "The username must be at least 5 characters long",
                 (val: any) =>
                     val &&
-                    val.toString().length >= 5 &&
-                    val.toString().length <= 20
+                    val.toString().length >= 5
             )
             .required("This field is required!"),
         email: Yup.string()
@@ -31,41 +33,35 @@ const Register: React.FC = () => {
         password: Yup.string()
             .required('No password provided.')
             .min(8, 'Password is too short - should be 8 chars minimum.')
-            .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
     });
     const handleRegister = (formValue: IUser) => {
         const {username, email, password} = formValue;
 
         AuthService.register(email, username, password).then(
             (response) => {
-                setMessage(response.data.message);
+                setSuccessMessage(response.data.message);
                 setSuccessful(true);
+                setTimeout(() => navigate('/login'), 3000)
             },
             (error) => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-
-                setMessage(resMessage);
+                setErrorMessages(error.response.data.err.errors);
                 setSuccessful(false);
             }
         );
     };
-        return (
-            <div className=" min-h-screen bg-gray-50 flex flex-col justify-center">
-                <div className="max-w-md w-full mx-auto">
-                    <div className="text-3xl mt-2 font-bold text-gray-900 text-center"> Register new user</div>
-                </div>
-                <div className="max-w-md w-full mx-auto mt-4 bg-white p-8 border border-gray-300">
-                    <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchema}
-                        onSubmit={handleRegister}
-                    >
-                        <Form>
+    return (
+        <div className=" min-h-screen flex flex-col justify-center">
+            <div className="max-w-md w-full mx-auto">
+                <div className="text-3xl mt-2 font-bold text-gray-50 text-center"> Register new user</div>
+            </div>
+            <div className="max-w-md w-full mx-auto mt-4 bg-white p-8 border rounded-lg border-gray-300">
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleRegister}
+                >
+                    {({errors, touched}) => (
+                        <Form className="text-black">
                             {!successful && (
                                 <div>
                                     <div>
@@ -76,10 +72,10 @@ const Register: React.FC = () => {
                                         <ErrorMessage
                                             name="email"
                                             component="div"
-                                            className="alert alert-danger"
+                                            className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="mt-4">
                                         <label className="text-sm font-bold text-gray-600 block">Username</label>
                                         <Field name="username" type="text"
                                                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-600"
@@ -87,43 +83,57 @@ const Register: React.FC = () => {
                                         <ErrorMessage
                                             name="username"
                                             component="div"
-                                            className="alert alert-danger"
+                                            className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="mt-4">
                                         <label className="text-sm font-bold text-gray-600 block ">Password</label>
-                                        <Field name="password"
+                                        <Field name="password" type="password"
                                                className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-600"
                                                placeholder="Enter Password"/>
                                         <ErrorMessage
                                             name="password"
                                             component="div"
-                                            className="alert alert-danger"
+                                            className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700"
                                         />
 
                                     </div>
-                                    <div>
-                                        <button className="w-full bg-blue-600 rounded text-white">Submit</button>
+                                    <div className="mt-4">
+                                        <button className="w-full bg-blue-600 rounded text-white" type="submit">Submit
+                                        </button>
                                     </div>
                                 </div>
                             )}
-                            {message && (
+                            {successful && (
                                 <div className="form-group">
                                     <div
                                         className={
-                                            successful ? "alert alert-success" : "alert alert-danger"
+                                            "bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
                                         }
                                         role="alert"
                                     >
-                                        {message}
+                                        {successMessage}
+                                    </div>
+                                </div>
+                            )}
+                            {errorMessages?.length && (
+                                <div className="form-group">
+                                    <div
+                                        className={
+                                            "border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700"
+                                        }
+                                        role="alert"
+                                    >
+                                        {errorMessages[0].msg}
                                     </div>
                                 </div>
                             )}
                         </Form>
-                    </Formik>
-                </div>
+                    )}
+                </Formik>
             </div>
-        )
-    }
+        </div>
+    )
+}
 
-    export default Register
+export default Register
