@@ -6,10 +6,10 @@ import Navbar from "./navbar";
 
 function App() {
   return (
-    <div className="App mx-10">
+    <div className="App mx-10 min-h-screen">
       <Header />
-        <Navbar/>
-        <Outlet/>
+      {/* <Navbar/> */}
+      <Outlet/>
       <Footer/>
     </div>
   );
