@@ -1,40 +1,51 @@
-import React, {Component, useEffect} from 'react';
-import {Navigate, NavLink} from "react-router-dom";
+import React from 'react';
+import { NavLink, useLocation } from "react-router-dom";
 
 const logOut = () => {
-    localStorage.setItem('token', '');
+    sessionStorage.removeItem('token');
 }
 
-function Navbar()  {
+const bg = 'bg-gradient-to-r from-pink-500 to-violet-500 rounded-lg p-0.5 mt-1 hover:text-gray-500 transition duration-500';
 
+function Navbar() {
+    const loc = useLocation();
+    const token = loc.state?.token;
 
-        return (
-            <nav className="flex flex-row gap-5 justify-center"
-            >
-                {sessionStorage.getItem('token') && navBarLoggedIn()}
-                {!sessionStorage.getItem('token') && navBarLoggedOut()}
-            </nav>
-        );
+    return (
+        <nav className="flex flex-row justify-center"
+        >
+            <div className='w-fit p-3 rounded-l gap-3 flex flex-row'>
+                {token && navBarLoggedIn(bg)}
+                {!token && navBarLoggedOut(bg)}
+            </div>
+        </nav>
+    );
 
 }
-function navBarLoggedIn() {
+function navBarLoggedIn(bg: string) {
     return (
         <React.Fragment>
-            <NavLink className="nav-item nav-link" to="/" onClick={logOut}>
-                Logout
+            <NavLink className={bg} to="/" onClick={logOut}>
+                <div className="bg-black px-3 rounded-lg">
+                    Logout
+                </div>
             </NavLink>
         </React.Fragment>
     );
 }
 
-function navBarLoggedOut() {
+function navBarLoggedOut(bg: string) {
     return (
         <React.Fragment>
-            <NavLink className="nav-item nav-link" to="/login">
-                Login
+            <NavLink className={bg} to="/login">
+                <div className='bg-black px-3 rounded-lg'>
+                    Login
+                </div>
             </NavLink>
-            <NavLink className="nav-item nav-link" to="/register">
-                Register
+            <NavLink className={bg} to="/register">
+                <div className='bg-black px-3 rounded-lg'>
+                    Register
+                </div>
             </NavLink>
         </React.Fragment>
     );
