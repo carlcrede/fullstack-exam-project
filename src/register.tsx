@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import AuthService from "./services/AuthService";
-import {Formik, Field, Form, ErrorMessage} from "formik";
-import * as Yup from "yup";
+import React, {useState} from 'react';
+import AuthService from './services/AuthService';
+import {Formik, Field, Form, ErrorMessage} from 'formik';
+import * as Yup from 'yup';
 import IUser from "./types/user";
 import {useNavigate} from "react-router-dom";
 
@@ -50,24 +50,22 @@ const Register: React.FC = () => {
         );
     };
     return (
-        <div className=" min-h-screen flex flex-col justify-center">
-            <div className="max-w-md w-full mx-auto">
-                <div className="text-3xl mt-2 font-bold text-gray-50 text-center"> Register new user</div>
-            </div>
+        <div className="flex flex-row justify-center text-gray-900">
             <div className="max-w-md w-full mx-auto mt-4 bg-white p-8 border rounded-lg border-gray-300">
+                <div className="text-3xl mt-2 font-bold text-center mb-4"> Register new user</div>
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleRegister}
                 >
                     {({errors, touched}) => (
-                        <Form className="text-black">
+                        <Form>
                             {!successful && (
                                 <div>
                                     <div>
-                                        <label className="text-sm font-bold text-gray-600 block">Email</label>
+                                        <label className="text-sm font-bold block">Email</label>
                                         <Field name="email" type="email" required
-                                               className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-600"
+                                               className="w-full p-2 border border-gray-300 rounded mt-1"
                                                placeholder="Enter Email"/>
                                         <ErrorMessage
                                             name="email"
@@ -76,9 +74,9 @@ const Register: React.FC = () => {
                                         />
                                     </div>
                                     <div className="mt-4">
-                                        <label className="text-sm font-bold text-gray-600 block">Username</label>
+                                        <label className="text-sm font-bold block">Username</label>
                                         <Field name="username" type="text"
-                                               className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-600"
+                                               className="w-full p-2 border border-gray-300 rounded mt-1"
                                                placeholder="Enter Username"/>
                                         <ErrorMessage
                                             name="username"
@@ -87,9 +85,9 @@ const Register: React.FC = () => {
                                         />
                                     </div>
                                     <div className="mt-4">
-                                        <label className="text-sm font-bold text-gray-600 block ">Password</label>
+                                        <label className="text-sm font-bold block ">Password</label>
                                         <Field name="password" type="password"
-                                               className="w-full p-2 border border-gray-300 rounded mt-1 text-gray-600"
+                                               className="w-full p-2 border border-gray-300 rounded mt-1"
                                                placeholder="Enter Password"/>
                                         <ErrorMessage
                                             name="password"
@@ -98,8 +96,9 @@ const Register: React.FC = () => {
                                         />
 
                                     </div>
-                                    <div className="mt-4">
-                                        <button className="w-full bg-blue-600 rounded text-white" type="submit">Submit
+                                    <div className="mt-4 bg-gradient-to-r 
+                                    from-pink-500 to-violet-500 rounded-lg p-2">
+                                        <button className="w-full rounded text-white font-bold" type="submit">Submit
                                         </button>
                                     </div>
                                 </div>
