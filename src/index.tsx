@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import Login from "./login";
+import Login from "./components/auth/Login";
 import ItemsContainer from "./components/ItemsContainer";
 import TvDetails from "./components/TvDetails";
 import MovieDetails from "./components/MovieDetails";
-import Register from "./register";
+import Register from "./components/auth/Register";
 
 
 const root = ReactDOM.createRoot(
@@ -38,5 +37,3 @@ root.render(
     </Router>
   </React.StrictMode>
 );
-
-reportWebVitals();

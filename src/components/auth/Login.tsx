@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import AuthService from "./services/AuthService";
+import {useState} from "react";
+import AuthService from "../../services/AuthService";
 import {useNavigate} from "react-router-dom";
-import useToken from "./useToken";
+import useToken from "../../useToken";
 
 export default function Login() {
     const { setToken, token } = useToken();
@@ -23,13 +23,11 @@ export default function Login() {
                 <div className="text-3xl font-bold text-center mb-4">Login</div>
                 <form action="" className="space-y-6" onSubmit={handleSubmit}>
                     <div>
-                        <label className="text-sm font-bold block">Username or Email</label>
                         <input name="user" type="text" onChange={e => setUser(e.target.value)}
                                className="w-full p-2 border border-gray-300 rounded mt-1"
                                placeholder="Enter Username or Email" autoComplete="off" />
                     </div>
                     <div>
-                        <label className="text-sm font-bold block">Password</label>
                         <input name="password" type="password" onChange={e => setPassword(e.target.value)}
                                className="w-full p-2 border border-gray-300 rounded mt-1"
                                placeholder="Enter Password" autoComplete="off"/>
