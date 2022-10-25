@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../navbar";
+import Navbar from "./Navbar";
+import SearchBar from "./SearchBar";
 
 function Header() {
     return (
         <React.Fragment>
-            <div className="flex flex-row justify-center gap-4 z-40 py-10 bg-gradient-to-b min-h-fit sticky top-0 from-[#060D17] via-[#060D17]/90 via-[#060D17]/40 to-[#060D17]/10">
+            <div className="flex flex-row justify-center gap-4 z-40 py-10 bg-gradient-to-b min-h-fit sticky top-0 items-center">
                 <div>
                     <Link to={'/'}>
                         <span 
@@ -16,6 +17,7 @@ function Header() {
                         </span>
                     </Link>
                 </div>
+                <SearchBar />
                 <Navbar />
             </div>
         </React.Fragment>

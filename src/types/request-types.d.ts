@@ -48,6 +48,7 @@ export interface MovieAndTvMixedResult extends PaginatedResponse {
     results?: Array<MovieResult | TvResult>;
 }
 export interface PersonResult {
+    media_type: string = 'person';
     profile_path?: string;
     adult?: boolean;
     id?: number;
