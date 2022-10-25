@@ -1,10 +1,10 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { ShowResponse } from '../types/request-types';
+import { ShowResponse, TvResult } from '../types/request-types';
 
 const TvDetails = () => {
     const location = useLocation();
-    const tv: ShowResponse = location.state.data;  
+    const tv: ShowResponse | TvResult = location.state.data;  
     return (
         <div>
             <div className="overflow-hidden relative">

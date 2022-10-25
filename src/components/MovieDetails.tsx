@@ -1,10 +1,10 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { MovieResponse } from '../types/request-types';
+import { MovieResponse, MovieResult } from '../types/request-types';
 
 const MovieDetails = () => {
     const location = useLocation();
-    const movie: MovieResponse = location.state.data;
+    const movie: MovieResponse | MovieResult = location.state.data;
     return (
         <div>
             <div className="overflow-hidden relative">

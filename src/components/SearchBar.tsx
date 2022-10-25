@@ -1,21 +1,13 @@
-import ItemsDataService from "../services/Items.service";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOnClickOutside } from "../hooks";
 import { MovieResult, TvResult, PersonResult } from "../types/request-types";
-import { capitalizeFirstLetter, getYearFromDate } from "../util/formatter";
-
-const isMovie = (item: MovieResult | TvResult | PersonResult): item is MovieResult => {
-  return (item as MovieResult).title !== undefined;
-}
-const isTv = (item: MovieResult | TvResult | PersonResult): item is TvResult => {
-  return (item as TvResult).name !== undefined;
-}
-
-const psoter_width = 80;
+import SearchBarResult from "./SearchBarResult";
+import ItemsDataService from "../services/Items.service";
 
 function SearchBar() {
   const [searchResults, setSearchResults] = useState<(MovieResult | TvResult | PersonResult)[]>([]);
+  const [searchTotalResults, setSearchTotalResults] = useState<number | undefined>();
   const [searchFocus, setSearchFocus] = useState(false);
   const [query, setQuery] = useState('');
 
@@ -24,16 +16,23 @@ function SearchBar() {
 
   const search = async (value: string) => {
     setQuery(value);
-    const data = (await ItemsDataService.search(value)).data;
+    const { data } = await ItemsDataService.search(value);
     if (data.results) {
       setSearchResults(data.results);
       setSearchFocus(true);
     }
+    
+    if (data.total_results) { setSearchTotalResults(data.total_results) }
   }
   
-  const handleClick = (item: MovieResult | TvResult) => {
+  const handleClick = (item: MovieResult | TvResult | PersonResult) => {
     setSearchFocus(false);
     navigate(`${item.media_type}/${item.id}`, { state: { data: item } });
+  }
+
+  const handleSeeAllResults = (items: (MovieResult | TvResult | PersonResult)[]) => {
+    setSearchFocus(false);
+    navigate(`search?q=${query}`, { state: { data: items, poster_width: 100, total_results: searchTotalResults } });
   }
 
   const resetSearch = () => { 
@@ -45,7 +44,7 @@ function SearchBar() {
   useOnClickOutside(ref, () => setSearchFocus(false));
   
   return (
-    <div className="w-1/3" ref={ref}>
+    <div className="w-1/3 select-none" ref={ref}>
       <div id="searchInput" className="relative block"
         onFocus={(e) => setSearchFocus((prev) => { if (searchResults.length < 1) return false; return true })}>
         <span className="absolute flex items-center inset-y-0 left-0 pl-2">
@@ -55,7 +54,7 @@ function SearchBar() {
         </span>
         <input
           className="bg-[#282c34] rounded-md p-2 focus:outline-none block w-full pl-9"
-          placeholder="Search for movies or TV shows..."
+          placeholder="Explore..."
           onChange={(e) => search(e.target.value)}
           value={query}
           type="text"
@@ -68,43 +67,16 @@ function SearchBar() {
       >
         {searchResults.slice(0, 5).map((item) => {
           return (
-            <div 
-              key={item.id} 
-              className="cursor-pointer hover:bg-slate-600 flex flex-row mb-2 gap-x-5 p-2 rounded-md"
-            >
-                {isMovie(item) && (
-                  <div onClick={() => handleClick(item)} className="w-full flex gap-5">
-                    <img 
-                      width={psoter_width} 
-                      src={item?.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : '/img-placeholder.png'} alt="IMG"
-                      className="rounded-md"
-                    />
-                    <div>
-                      <p className="font-bold">{item.title}</p>
-                      <p>{capitalizeFirstLetter(item.media_type)}, {getYearFromDate(item.release_date)}</p>
-                      <p>{item.vote_average}/10</p>
-                    </div>
-                  </div>
-                )}
-                {isTv(item) && (
-                  <div onClick={() => handleClick(item)} className='w-full flex gap-5'>
-                    <div>
-                      <img 
-                        width={psoter_width} 
-                        src={item?.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : '/img-placeholder.png'} alt="IMG"
-                        className="rounded-md"
-                        />
-                    </div>
-                    <div>
-                      <p className="font-bold">{item.name}</p>
-                      <p>{capitalizeFirstLetter(item.media_type)}, {getYearFromDate(item.first_air_date)}</p>
-                      <p>{item.vote_average}/10</p>
-                    </div>
-                  </div>
-                )}
-              </div>
+            <SearchBarResult key={item.id} item={item} poster_width={60} handleClick={handleClick} />
           )
         })}
+        {query && (
+          <div
+            onClick={() => handleSeeAllResults(searchResults)}
+            className="text-center hover:bg-slate-600 p-2 rounded-md cursor-pointer"
+            >See all results for {query} »
+          </div>
+        )}
       </div>
     </div>
   )
