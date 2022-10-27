@@ -1,12 +1,7 @@
-<<<<<<< Updated upstream
 import React, {useEffect, useState} from 'react'
 import {useLocation, useParams} from 'react-router-dom'
 import {MovieResponse, ShowResponse, TvResult} from '../types/request-types';
 import tvService from "../services/Tv.service";
-=======
-import { useLocation } from 'react-router-dom'
-import { ShowResponse, TvResult } from '../types/request-types';
->>>>>>> Stashed changes
 
 const TvDetails = () => {
     const {id} = useParams();
