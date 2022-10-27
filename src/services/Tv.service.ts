@@ -5,4 +5,4 @@ class TvDataService {
     get = async (id: string) => await http.get<ShowResponse>(`/items/tv/${id}`);
 }
 
-export default new TvDataService()
+export default new TvDataService();

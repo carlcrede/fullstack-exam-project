@@ -6,4 +6,4 @@ class AuthService {
     register = async (email: string, username: string, password: string) => await http.post("/auth/register", {email, username, password});
 }
 
-export default new AuthService()
+export default new AuthService();

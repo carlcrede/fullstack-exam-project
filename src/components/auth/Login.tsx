@@ -1,20 +1,24 @@
 import {useState} from "react";
 import AuthService from "../../services/AuthService";
 import {useNavigate} from "react-router-dom";
-import useToken from "../../useToken";
+import { setAuthToken } from "./Auth";
 
-export default function Login() {
-    const { setToken, token } = useToken();
+const Login = () => {
     const navigate = useNavigate();
-    const [password, setPassword] = useState("")
-    const [user, setUser] = useState("")
+    const [password, setPassword] = useState("");
+    const [user, setUser] = useState("");
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        await AuthService.login(user, password).then(r => {
-            setToken(r.data['token']);
-            navigate('/', { state: { token: r.data['token'] } });
-        });
+        setErrorMessage('');
+        try {
+            const response = await AuthService.login(user, password);
+            setAuthToken(response.data['token']);
+            navigate('/');
+        } catch (err: any) {
+            setErrorMessage(err.response.data.message);
+        }
     }
 
     return (
@@ -23,12 +27,12 @@ export default function Login() {
                 <div className="text-3xl font-bold text-center mb-4">Login</div>
                 <form action="" className="space-y-6" onSubmit={handleSubmit}>
                     <div>
-                        <input name="user" type="text" onChange={e => setUser(e.target.value)}
+                        <input required={true} name="user" type="text" onChange={e => setUser(e.target.value)}
                                className="w-full p-2 border border-gray-300 rounded mt-1"
                                placeholder="Enter Username or Email" autoComplete="off" />
                     </div>
                     <div>
-                        <input name="password" type="password" onChange={e => setPassword(e.target.value)}
+                        <input required={true} name="password" type="password" onChange={e => setPassword(e.target.value)}
                                className="w-full p-2 border border-gray-300 rounded mt-1"
                                placeholder="Enter Password" autoComplete="off"/>
                     </div>
@@ -37,7 +41,12 @@ export default function Login() {
                         <button className="w-full rounded text-white font-bold select-none">Log in</button>
                     </div>
                 </form>
+                {errorMessage.length > 0 && (
+                    <div className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">{errorMessage}</div>
+                )}
             </div>
         </div>
     )
 }
+
+export default Login;

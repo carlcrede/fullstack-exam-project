@@ -5,7 +5,7 @@ import { MovieResult, TvResult, PersonResult } from "../types/request-types";
 import SearchBarResult from "./SearchBarResult";
 import ItemsDataService from "../services/Items.service";
 
-function SearchBar() {
+const SearchBar = () => {
   const [searchResults, setSearchResults] = useState<(MovieResult | TvResult | PersonResult)[]>([]);
   const [searchTotalResults, setSearchTotalResults] = useState<number | undefined>();
   const [searchFocus, setSearchFocus] = useState(false);
@@ -23,17 +23,17 @@ function SearchBar() {
     }
     
     if (data.total_results) { setSearchTotalResults(data.total_results) }
-  }
+  };
   
   const handleClick = (item: MovieResult | TvResult | PersonResult) => {
     setSearchFocus(false);
     navigate(`${item.media_type}/${item.id}`, { state: { data: item } });
-  }
+  };
 
   const handleSeeAllResults = (items: (MovieResult | TvResult | PersonResult)[]) => {
     setSearchFocus(false);
     navigate(`search?q=${query}`, { state: { data: items, poster_width: 100, total_results: searchTotalResults } });
-  }
+  };
 
   const resetSearch = () => { 
     setSearchResults([]); 
@@ -80,6 +80,6 @@ function SearchBar() {
       </div>
     </div>
   )
-}
+};
 
-export default SearchBar
+export default SearchBar;

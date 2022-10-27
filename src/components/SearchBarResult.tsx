@@ -7,7 +7,7 @@ interface IProps {
     handleClick: Function;
     poster_width: number;
 }
-function SearchBarResult({ item, handleClick, ...props }: IProps) {
+const SearchBarResult = ({ item, handleClick, ...props }: IProps) => {
     return (
         <div
             key={item.id}
@@ -45,6 +45,6 @@ function SearchBarResult({ item, handleClick, ...props }: IProps) {
             )}
         </div>
     )
-}
+};
 
-export default SearchBarResult
+export default SearchBarResult;

@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useId, useState } from "react";
 import Item from "./Item";
 import Filter from "./Filters";
 import { DiscoverMovieRequest, DiscoverTvRequest, MovieResponse, ShowResponse } from "../types/request-types";
@@ -22,7 +22,7 @@ const defaultFilters: Filters = {
     page: 1,
 }
 
-function ItemsContainer(): JSX.Element {
+const ItemsContainer = (): JSX.Element => {
     const [items, setItems] = useState<(MovieResponse & ShowResponse)[]>([]);
     const [filters, setFilters] = useState(defaultFilters);
     const [fetching, setFetching] = useState(false);

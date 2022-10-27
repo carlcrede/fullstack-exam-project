@@ -3,7 +3,7 @@ import { MovieResponse, ShowResponse } from "../types/request-types";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useState } from "react";
 
-function Item(props: MovieResponse & ShowResponse) {
+const Item = (props: MovieResponse & ShowResponse) => {
     const media = (props.title) ? 'movie': 'tv';
     const url = `${media}/${props.id}`;
     const [hasPoster, setHasPoster] = useState(props.poster_path);
@@ -22,4 +22,4 @@ function Item(props: MovieResponse & ShowResponse) {
     );
 }
 
-export default Item
+export default Item;

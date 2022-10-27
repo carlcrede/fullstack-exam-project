@@ -1,10 +1,10 @@
 import {useEffect} from "react";
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Logout() {
+const Logout = () => {
     useEffect(() => {
         localStorage.setItem('token', '');
     }, []);
-    return <Navigate to="/"/>;
+    return <Link className="" to="/"/>;
 }
-export default Logout
+export default Logout;

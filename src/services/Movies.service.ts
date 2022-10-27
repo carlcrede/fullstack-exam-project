@@ -5,4 +5,4 @@ class MovieDataService {
     get = async (id: string) => await http.get<MovieResponse>(`/items/movie/${id}`);
 }
 
-export default new MovieDataService()
+export default new MovieDataService();

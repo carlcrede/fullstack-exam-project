@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-function MediaButtons({ onSelectMedia }: any) {
+const MediaButtons = ({ onSelectMedia }: any) => {
     const [defaultSelected, setDefaultSelected] = useState(true);
     return (
         <div className="flex flex-row gap-3 text-gray-500 select-none">
@@ -29,4 +29,4 @@ function MediaButtons({ onSelectMedia }: any) {
     )
 }
 
-export default MediaButtons
+export default MediaButtons;

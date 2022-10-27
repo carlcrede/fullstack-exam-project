@@ -3,7 +3,7 @@ import './App.css';
 import Footer from './components/Footer';
 import Header from './components/Header';
 
-function App() {
+const App = () => {
   return (
     <div className="App mx-10 min-h-screen">
       <Header />

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import SearchBar from "./SearchBar";
 
-function Header() {
+const Header = () => {
     return (
         <React.Fragment>
             <div className="flex flex-row justify-center gap-4 z-40 py-10 bg-gradient-to-b min-h-fit sticky top-0 items-center">
