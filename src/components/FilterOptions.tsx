@@ -1,8 +1,6 @@
-import React from 'react'
-
-function FilterOptions() {
+const FilterOptions = () => {
   return (
-    <div className="flex flex-row gap-5 text-gray-500 leading-9">
+    <div className="flex flex-row gap-5 text-gray-500 leading-9 select-none">
       <div>
         <span className="text-lg">FILTERS</span>
       </div>
@@ -16,4 +14,4 @@ function FilterOptions() {
   )
 }
 
-export default FilterOptions
+export default FilterOptions;

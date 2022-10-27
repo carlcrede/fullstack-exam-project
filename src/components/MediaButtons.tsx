@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 function MediaButtons({ onSelectMedia }: any) {
     const [defaultSelected, setDefaultSelected] = useState(true);
     return (
-        <div className="flex flex-row gap-3 text-gray-500">
+        <div className="flex flex-row gap-3 text-gray-500 select-none">
             <div className='rounded-l-md'>
                 <button
                     className={`text-2xl hover:text-white transition duration-500 focus:text-white focus:border-b-2 ${defaultSelected ? 'border-b-2': ''}`}

@@ -1,9 +1,10 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import Item from "./Item";
 import Filter from "./Filters";
 import { DiscoverMovieRequest, DiscoverTvRequest, MovieResponse, ShowResponse } from "../types/request-types";
 import InfiniteScroll from 'react-infinite-scroller';
 import ItemsDataService from '../services/Items.service';
+import IpService, { IpInfo } from "../services/Ip.service";
 
 export interface Filters {
     media: { movie: boolean, tv: boolean };
@@ -11,23 +12,26 @@ export interface Filters {
     tv_filters?: DiscoverTvRequest;
     movie_filter?: DiscoverMovieRequest;
     page: number;
+    watch_region?: string;
+    region?: string;
 }
 
 const defaultFilters: Filters = {
     media: { movie: true, tv: true },
     sort_by: 'popularity.desc',
-    page: 1
+    page: 1,
 }
 
 function ItemsContainer(): JSX.Element {
     const [items, setItems] = useState<(MovieResponse & ShowResponse)[]>([]);
     const [filters, setFilters] = useState(defaultFilters);
     const [fetching, setFetching] = useState(false);
+    const [ipData, setIpData] = useState<IpInfo>({});
     const id = useId();
 
     const onFiltersUpdated = (new_filters: Filters) => {
         setFilters(filters => {
-            return {...filters, ...new_filters}
+            return { ...filters, ...new_filters }
         });
     }
 
@@ -36,12 +40,16 @@ function ItemsContainer(): JSX.Element {
         setItems(prev => []);
     }
 
-    const loadItems = async () => {        
+    const getIpData = async () => (await IpService.getIpData()).data;
+
+    const loadItems = async () => {
+        const ip = await getIpData();
+        setIpData(ip);
         if (fetching) return;
         setFetching(prev => !prev);
-        const { data: all_items } = await ItemsDataService.getAll(filters);
+        const { data: all_items } = await ItemsDataService.getAll({...filters, watch_region: ipData.countryCode, region: ipData.countryCode});
         setItems([...items, ...all_items]);
-        setFilters(prev => ({...prev, page: filters.page + 1}));
+        setFilters(prev => ({ ...prev, page: filters.page + 1 }));
         setFetching(prev => !prev);
     }
 
@@ -51,7 +59,7 @@ function ItemsContainer(): JSX.Element {
 
     return (
         <React.Fragment>
-            <Filter onSelectMedia={onSelectMedia} />
+            <Filter setFilters={setFilters} onSelectMedia={onSelectMedia} />
             <InfiniteScroll
                 className="flex flex-row flex-wrap gap-4 justify-center"
                 loadMore={loadItems}
