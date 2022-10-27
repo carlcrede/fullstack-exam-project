@@ -10,7 +10,7 @@ function Item(props: MovieResponse & ShowResponse) {
     return (
         <div className="basis-1/8 select-none">
             <div className="overflow-hidden relative">
-                <Link to={url} state={{ data: props }}>
+                <Link to={url}>
                     <LazyLoadImage src={hasPoster ? `https://image.tmdb.org/t/p/w342${props.poster_path}` : '/img-placeholder.png'}
                         alt={props.title || props.name}
                         className="rounded-lg"

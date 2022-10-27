@@ -5,10 +5,10 @@ import App from './App';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from "./components/auth/Login";
 import ItemsContainer from "./components/ItemsContainer";
-import TvDetails from "./components/TvDetails";
-import MovieDetails from "./components/MovieDetails";
 import Register from "./components/auth/Register";
 import SearchResults from './components/SearchResults';
+import TvDetails from "./components/TvDetails";
+import MovieDetails from "./components/MovieDetails";
 
 
 const root = ReactDOM.createRoot(
