@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
 import { isAuthenticated } from './auth/Auth';
 
-
 const bg = 'bg-gradient-to-r from-pink-500 to-violet-500 background-animate rounded-lg p-0.5 mt-1 hover:text-gray-500 transition duration-500';
 
 const Navbar = () => {
@@ -24,6 +23,11 @@ const NavBarLoggedIn = (bg: string, setIsLoggedIn: Function) => {
     };
     return (
         <React.Fragment>
+            <NavLink className={bg} to={'/me'}>
+                <div className="bg-black px-3 rounded-lg select-none">
+                    Profile
+                </div>
+            </NavLink>
             <NavLink className={bg} to="/" onClick={() => logOut()}>
                 <div className="bg-black px-3 rounded-lg select-none">
                     Logout

@@ -9,7 +9,7 @@ import Register from "./components/auth/Register";
 import SearchResults from './components/SearchResults';
 import TvDetails from "./components/TvDetails";
 import MovieDetails from "./components/MovieDetails";
-
+import UserProfile from './components/user/UserProfile';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -26,6 +26,7 @@ root.render(
           <Route path={'movie/:id'} element={<MovieDetails />} />
           <Route path={'login'} element={<Login />} />
           <Route path={'register'} element={<Register />} />
+          <Route path={'me'} element={<UserProfile />} />
           <Route
             path="*"
             element={
