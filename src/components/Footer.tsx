@@ -6,7 +6,7 @@ import logo from '../assets/cineswipe.png';
 const Footer = () => {
     return (
         <div className="relative py-24 px-8 bg-top bg-cover bg-no-repeat" style={{backgroundImage: `url(${bg})`}}>
-            // TODO: I deleted container and no screen width here, works on my 15' laptop and 24' screen, try it out, also change logo?
+            {/*TODO: I deleted container and no screen width here, works on my 15' laptop and 24' screen, try it out, also change logo?*/}
             <div className="flex items-center justify-center mb-12">
                     <div className="font-bold text-4xl flex items-center justify-self-auto">
                         <img className="mr-[10px] w-[50px]" src={logo} alt=""/>
