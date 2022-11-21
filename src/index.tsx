@@ -16,27 +16,25 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path={'/'} element={<App />}>
-          <Route path={''} element={<ItemsContainer />} />
-          <Route path={'search'} element={<SearchResults />} />
-          <Route path={'tv/:id'} element={<TvDetails />} />
-          <Route path={'movie/:id'} element={<MovieDetails />} />
-          <Route path={'login'} element={<Login />} />
-          <Route path={'register'} element={<Register />} />
-          <Route path={'me'} element={<UserProfile />} />
-          <Route
-            path="*"
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>There's nothing here!</p>
-              </main>
-            }
-          />
-        </Route>
-      </Routes>
-    </Router>
-  </React.StrictMode>
+  <Router>
+    <Routes>
+      <Route path={'/'} element={<App />}>
+        <Route path={''} element={<ItemsContainer />} />
+        <Route path={'search'} element={<SearchResults />} />
+        <Route path={'tv/:id'} element={<TvDetails />} />
+        <Route path={'movie/:id'} element={<MovieDetails />} />
+        <Route path={'login'} element={<Login />} />
+        <Route path={'register'} element={<Register />} />
+        <Route path={'me'} element={<UserProfile />} />
+        <Route
+          path="*"
+          element={
+            <main style={{ padding: "1rem" }}>
+              <p>There's nothing here!</p>
+            </main>
+          }
+        />
+      </Route>
+    </Routes>
+  </Router>
 );
