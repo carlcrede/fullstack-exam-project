@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import Item from "./Item";
 import Filter from "./Filters";
 import { DiscoverMovieRequest, DiscoverTvRequest, MovieResponse, ShowResponse } from "../types/request-types";
@@ -42,9 +42,14 @@ const ItemsContainer = (): JSX.Element => {
 
     const getIpData = async () => (await IpService.getIpData()).data;
 
+    useEffect(() => {
+        getIpData().then(data => {
+            setIpData(data);
+        });
+    }, [])
+    
+
     const loadItems = async () => {
-        const ip = await getIpData();
-        setIpData(ip);
         if (fetching) return;
         setFetching(prev => !prev);
         const { data: all_items } = await ItemsDataService.getAll({...filters, watch_region: ipData.countryCode, region: ipData.countryCode});
