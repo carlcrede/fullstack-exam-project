@@ -26,7 +26,7 @@ const MovieDetails = () => {
                             className="flex mb-[3rem] container flex items-start justify-start max-w-screen-xl ml-auto mr-auto -mt-[200px] relative py-0 px-8">
                             <div className="flex-[1]">
                                 <div className="bg-center bg-cover bg-no-repeat p-[165%] rounded-[30px]"
-                                     style={{backgroundImage: `url('https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}')`}}>
+                                     style={{backgroundImage: `url('https://image.tmdb.org/t/p/w1280/${movie?.poster_path}')`}}>
                                 </div>
                             </div>
                             <div className="w-[70%] pl-8 relative">
@@ -52,7 +52,7 @@ const MovieDetails = () => {
                                     <div className="flex items-center justify-between">
                                         <h2>Casts</h2>
                                     </div>
-                                    <div className="grid grid-cols-[repeat(auto-fill_minmax(90px,_1fr))] gap-[10px]">
+                                    <div className="grid grid-cols-[repeat(auto-fill,_minmax(90px,_1fr))] gap-[10px]">
                                         {
                                             movie.credits.cast?.slice(0, 5).map((item, i) => (
                                                 <div key={i} className="">
