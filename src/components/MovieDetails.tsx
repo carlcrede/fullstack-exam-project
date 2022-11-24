@@ -23,13 +23,8 @@ const MovieDetails = () => {
                         <div className="relative bg-cover bg-center bg-no-repeat h-[50vh]"
                              style={{backgroundImage: `url('https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}')`}}></div>
                         <div
-                            className="flex mb-[3rem] container flex items-start justify-start max-w-screen-xl ml-auto mr-auto -mt-[200px] relative py-0 px-8">
-                            <div className="flex-[1]">
-                                <div className="bg-center bg-cover bg-no-repeat p-[165%] rounded-[30px]"
-                                     style={{backgroundImage: `url('https://image.tmdb.org/t/p/w1280/${movie?.poster_path}')`}}>
-                                </div>
-                            </div>
-                            <div className="w-[70%] pl-8 relative">
+                            className="flex mb-[3rem] container items-start justify-start max-w-screen-xl ml-auto mr-auto -mt-[200px] relative py-0 px-8">
+                            <div className="pl-8 relative">
                                 <div>
                                     <h1 className="text-5xl py-8">{movie?.title} ({movie?.release_date?.slice(0, 4)})</h1>
                                 </div>
@@ -38,11 +33,11 @@ const MovieDetails = () => {
                                         {
                                             movie.genres && movie.genres.slice(0, 5).map((genre, i) => (
                                                 <span key={i}
-                                                      className="py-2 px-6 border-solid border-white border-2 text-xs font-bold rounded-[30px]">{genre.name}</span>
+                                                      className="py-2 px-6 border-solid border-red-400 border-2 text-xs font-bold rounded-[30px]">{genre.name}</span>
                                             ))
                                         }
                                     </div>
-                                    <p className="font-bold">{movie?.overview}</p>
+                                    <p className="font-bold py-4">{movie?.overview}</p>
                                     <h1 className="mb-1"><b>Original
                                         language: {movie?.original_language?.toUpperCase()}</b>
                                     </h1>
@@ -57,7 +52,7 @@ const MovieDetails = () => {
                                         <div className="grid grid-cols-[repeat(auto-fill,_minmax(90px,_1fr))] gap-[10px]">
                                             {
                                                 movie.credits.cast?.slice(0, 5).map((item, i) => (
-                                                    <div key={i} className="">
+                                                    <div key={i}>
                                                         <div className="pt-[160px] bg-cover mb-2"
                                                              style={{backgroundImage: `url('https://image.tmdb.org/t/p/w500/${item.profile_path}')`}}></div>
                                                         <p className="text-xs font-bold">{item.name}</p>
@@ -70,7 +65,7 @@ const MovieDetails = () => {
                                                 movie.videos.results?.filter(video => video.type === 'Trailer').slice(0, 5).map((item, i) => (
                                                     <div className="mb-12">
                                                         <div className="mb-6">
-                                                            <h2>{item.name}</h2>
+                                                            <h2 className="font-bold">{item.name}</h2>
                                                         </div>
                                                         <iframe
                                                             src={`https://www.youtube.com/embed/${item.key}`}
