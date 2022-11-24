@@ -13,7 +13,6 @@ const Footer = () => {
         moviesService.getTrending().then((response) => {
             setMovies(response.data);
             console.log(response.data)
-            console.log(response.data)
         })
     }, [])
 

@@ -11,7 +11,7 @@ export interface IpInfo {
 }
 
 class IpDataService {
-    getIpData = async () => await http.get<IpInfo>('/items/ipinfo');
+    getIpData = async () => await http.get<IpInfo>('/ipinfo');
 }
 
 export default new IpDataService();
