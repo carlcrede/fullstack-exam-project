@@ -11,7 +11,6 @@ const MovieDetails = () => {
     useEffect(() => {
         moviesService.get(id!).then((response) => {
             setMovie(response.data);
-            console.log(response.data)
         })
         window.scrollTo(0, 0);
     }, [])
@@ -43,8 +42,7 @@ const MovieDetails = () => {
                                     </h1>
                                     <h1 className="mb-1"><b>Adult only: {movie?.adult ? "yes" : "no"}</b></h1>
                                     <h1 className="mb-1"><b>Runtime: {movie?.runtime} mins</b></h1>
-                                    <h1 className="mb-1"><b>Votes: {movie?.vote_count}</b></h1>
-                                    <h1 className="mb-1"><b>Rating: {movie?.vote_average} / 10</b></h1>
+                                    <h1 className="mb-1"><b>Rating: {movie?.vote_average?.toPrecision(2)} / 10</b> out of <b>{movie?.vote_count}</b> votes </h1>
                                     <div className="grid grid-cols-[repeat(auto-fill_minmax(90px,_1fr))] gap-[10px]">
                                         <div className="flex items-center justify-between">
                                             <h2 className="text-2xl font-bold py-4">Casts</h2>
