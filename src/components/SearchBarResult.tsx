@@ -11,10 +11,10 @@ const SearchBarResult = ({ item, handleClick, ...props }: IProps) => {
     return (
         <div
             key={item.id}
-            className="cursor-pointer hover:bg-slate-600 flex flex-row mb-2 gap-x-5 p-2 rounded-md"
+            className="cursor-pointer hover:bg-slate-600 mb-2 gap-x-5 p-2 rounded-md"
         >
             {isMovie(item) && (
-                <div onClick={() => handleClick(item)} className="w-full flex gap-5">
+                <div onClick={() => handleClick(item)} className="flex gap-5">
                     <img
                         width={props.poster_width}
                         src={item?.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : '/img-placeholder.png'} alt="IMG"
@@ -28,7 +28,7 @@ const SearchBarResult = ({ item, handleClick, ...props }: IProps) => {
                 </div>
             )}
             {isTv(item) && (
-                <div onClick={() => handleClick(item)} className='w-full flex gap-5'>
+                <div onClick={() => handleClick(item)} className='flex gap-5'>
                     <div>
                         <img
                             width={props.poster_width}
