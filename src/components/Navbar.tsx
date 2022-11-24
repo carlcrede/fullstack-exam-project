@@ -4,8 +4,9 @@ import { isAuthenticated } from './auth/Auth';
 
 const bg = 'bg-gradient-to-r from-pink-500 to-violet-500 background-animate rounded-lg p-0.5 mt-1 hover:text-gray-500 transition duration-500';
 
-const Navbar = () => {
+const Navbar = (props: any) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(isAuthenticated());
+    
     return (
         <nav>
             <div className='w-fit rounded-l gap-3 flex flex-row'>
@@ -18,8 +19,9 @@ const Navbar = () => {
 
 const NavBarLoggedIn = (bg: string, setIsLoggedIn: Function) => {
     const logOut = () => {
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
         setIsLoggedIn((prev:boolean) => !prev)
+        window.location.reload();
     };
     return (
         <React.Fragment>

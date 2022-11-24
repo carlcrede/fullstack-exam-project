@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 import { setAuthToken } from "./Auth";
 
 const Login = () => {
-    const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [user, setUser] = useState("");
     const [errorMessage, setErrorMessage] = useState<string>('');
@@ -15,7 +14,7 @@ const Login = () => {
         try {
             const response = await AuthService.login(user, password);
             setAuthToken(response.data['token']);
-            navigate('/');
+            window.location.href = '/';
         } catch (err: any) {
             setErrorMessage(err.response.data.message);
         }
