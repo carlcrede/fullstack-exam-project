@@ -5,7 +5,6 @@ import { DiscoverMovieRequest, DiscoverTvRequest, MovieResponse, ShowResponse } 
 import InfiniteScroll from 'react-infinite-scroller';
 import ItemsDataService from '../services/Items.service';
 import IpService, { IpInfo } from "../services/Ip.service";
-
 export interface Filters {
     media: { movie: boolean, tv: boolean };
     sort_by?: string;
@@ -70,6 +69,7 @@ const ItemsContainer = (): JSX.Element => {
                 loadMore={loadItems}
                 hasMore={true}
                 initialLoad={true}
+                loader={<div className="loader" key={0}>Loading ...</div>}
             >
                 {movieList}
             </InfiniteScroll>
