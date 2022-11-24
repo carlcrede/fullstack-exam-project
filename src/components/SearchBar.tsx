@@ -21,8 +21,12 @@ const SearchBar = () => {
       setSearchResults(data.results);
       setSearchFocus(true);
     }
-    
     if (data.total_results) { setSearchTotalResults(data.total_results) }
+    if (!value || value === '') {
+      resetSearch();
+      setSearchTotalResults(0);
+    }
+    
   };
   
   const handleClick = (item: MovieResult | TvResult | PersonResult) => {
