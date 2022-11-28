@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserService from "../../services/User.service"
 
 type User = {
@@ -12,13 +13,18 @@ const UserProfile = () => {
     const [email, setEmail] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [error, setError] = useState<string>('');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        UserService.getUserProfile().then((response) => {
-            setUser(response.data);
-            setEmail(response.data.email);
-            setUsername(response.data.username);
-        });
+        UserService.getUserProfile().then(
+            (response) => {
+                setUser(response.data);
+                setEmail(response.data.email);
+                setUsername(response.data.username);
+            }, (error) => {
+                navigate('/login');
+            }
+        );
     }, []);
     
     const saveInfo = (e: { preventDefault: () => void; }) => {
@@ -30,17 +36,24 @@ const UserProfile = () => {
                 setUsername(response.data.username);
             },
             (error) => {
-                console.log(error);
                 setError(error.response.data);
             }
         );
     }
 
     const handleProfilePictureUpload = (e: { target: { files: any; }; }) => {
-        const [file] = e.target.files;
+        const file = e.target.files[0];
         if (file) {
-            console.log(file);
-        }
+            const formData = new FormData();
+            formData.append('profilePicture', file);
+            UserService.uploadProfilePicture(formData).then(
+                (response) => {
+                    setUser(prev => ({...prev, ...response.data}));
+                },
+                (error) => {
+                    setError(error.response.data);
+                }
+        )}
     }
 
   return (
