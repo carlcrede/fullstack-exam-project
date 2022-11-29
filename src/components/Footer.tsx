@@ -2,17 +2,21 @@ import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import bg from '../assets/footer-bg.jpg';
 import logo from '../assets/cineswipe.png';
-import {TrendingResponse} from "../types/request-types";
+import {MovieResult, TrendingResponse, TvResult} from "../types/request-types";
 import moviesService from "../services/Movies.service";
+import tvService from "../services/Tv.service";
 
 const Footer = () => {
     const [movies, setMovies] = useState<TrendingResponse>();
+    const [series, setSeries] = useState<TrendingResponse>();
 
 
     useEffect(() => {
         moviesService.getTrending().then((response) => {
             setMovies(response.data);
-            console.log(response.data)
+        }),
+        tvService.getTrending().then((response) => {
+            setSeries(response.data);
         })
     }, [])
 
@@ -27,19 +31,27 @@ const Footer = () => {
                 </div>
                 <div className="grid grid-cols-3">
                     <div className="flex flex-col justify-center items-center mt-1 font-bold">
-                        <Link to="/">Home</Link>
+                        <Link to="/">Trending 5 movies today</Link>
                         {
-                            movies?.results?.slice(0, 5).map((movie, i) => (
-                                <span key={i} className="py-2 px-6 border-solid border-red-400 border-2 text-xs font-bold rounded-[30px]">{movie.title}</span>
+                            movies && movies?.filter(movie => movie.media_type === 'movie').slice(0, 5).map((item:MovieResult, i) => (
+                                <span key={i}
+                                      className="text-xs">{item.title}</span>
                             ))
                         }
                     </div>
                     <div className="flex flex-col justify-center items-center mt-1 font-bold">
                         <Link to="/">Home</Link>
                         <Link to="https://www.rottentomatoes.com/">Rotten Tomatoes</Link>
+                        <Link to="https://www.imdb.com/">IMDB</Link>
                     </div>
                     <div className="flex flex-col justify-center items-center mt-1 font-bold">
-                        <Link to="https://www.imdb.com/">IMDB</Link>
+                        <Link to="/">Trending 5 series today</Link>
+                        {
+                            series && series?.filter(serie => serie.media_type === 'tv').slice(0, 5).map((item:TvResult, i) => (
+                                <span key={i}
+                                      className="text-xs">{item.name}</span>
+                            ))
+                        }
                     </div>
                 </div>
         </div>
