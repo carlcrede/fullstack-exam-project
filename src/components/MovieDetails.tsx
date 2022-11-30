@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
-import {CreditsResponse, MovieResponse, VideosResponse} from '../types/request-types';
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { CreditsResponse, MovieResponse, VideosResponse } from '../types/request-types';
 import moviesService from "../services/Movies.service";
 
 const MovieDetails = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const [movie, setMovie] = useState<MovieResponse & { videos: VideosResponse } & { credits: CreditsResponse }>();
 
 
@@ -19,20 +19,20 @@ const MovieDetails = () => {
             {
                 movie && (
                     <>
-                        <div className="relative bg-cover bg-center bg-no-repeat h-[50vh]"
-                             style={{backgroundImage: `url('https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}')`}}></div>
+                        <div className="relative bg-cover bg-center bg-no-repeat h-[50vh] rounded-md"
+                            style={{ backgroundImage: `url('https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}')` }}></div>
                         <div
                             className="flex mb-[3rem] container items-start justify-start max-w-screen-xl ml-auto mr-auto -mt-[200px] relative py-0 px-8">
                             <div className="pl-8 relative">
                                 <div>
                                     <h1 className="text-5xl py-8">{movie?.title} ({movie?.release_date?.slice(0, 4)})</h1>
                                 </div>
-                                <div className="bg-black">
-                                    <div className="ml-2 py-4">
+                                <div className="bg-black px-5 rounded-md">
+                                    <div className="py-4 flex gap-x-2">
                                         {
                                             movie.genres && movie.genres.slice(0, 5).map((genre, i) => (
-                                                <span key={i}
-                                                      className="py-2 px-6 border-solid border-red-400 border-2 text-xs font-bold rounded-[30px]">{genre.name}</span>
+                                                <span key={genre.id}
+                                                    className="py-2 px-6 border-solid border-red-400 border-2 text-xs font-bold rounded-[30px]">{genre.name}</span>
                                             ))
                                         }
                                     </div>
@@ -50,9 +50,9 @@ const MovieDetails = () => {
                                         <div className="grid grid-cols-[repeat(auto-fill,_minmax(90px,_1fr))] gap-[10px]">
                                             {
                                                 movie.credits.cast?.slice(0, 5).map((item, i) => (
-                                                    <div key={i}>
-                                                        <div className="pt-[160px] bg-cover mb-2"
-                                                             style={{backgroundImage: `url('https://image.tmdb.org/t/p/w500/${item.profile_path}')`}}></div>
+                                                    <div key={item.id}>
+                                                        <div className="pt-[160px] bg-cover mb-2 rounded-md"
+                                                            style={{ backgroundImage: `url('https://image.tmdb.org/t/p/w500/${item.profile_path}')` }}></div>
                                                         <p className="text-xs font-bold">{item.name}</p>
                                                     </div>
                                                 ))
@@ -61,7 +61,7 @@ const MovieDetails = () => {
                                         <div className="mb-12 py-0 px-8">
                                             {
                                                 movie.videos.results?.filter(video => video.type === 'Trailer').slice(0, 5).map((item, i) => (
-                                                    <div className="mb-12">
+                                                    <div key={item.id} className="mb-12">
                                                         <div className="mb-6">
                                                             <h2 className="font-bold">{item.name}</h2>
                                                         </div>
@@ -70,6 +70,7 @@ const MovieDetails = () => {
                                                             height="300px"
                                                             width="100%"
                                                             title="video"
+                                                            className='rounded-md'
                                                         ></iframe>
                                                     </div>
                                                 ))
