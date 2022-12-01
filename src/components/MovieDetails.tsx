@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { CreditsResponse, MovieResponse, VideosResponse } from '../types/request-types';
 import moviesService from "../services/Movies.service";
 import CastList from "./CastList";
+import VideoList from "./VideoList";
 
 const MovieDetails = () => {
     const { id } = useParams();
@@ -49,24 +50,7 @@ const MovieDetails = () => {
                                             <h2 className="text-2xl font-bold py-4">Casts</h2>
                                         </div>
                                         <CastList cast={movie.credits.cast?.slice(0, 5)}/>
-                                        <div className="mb-12 py-0 px-8">
-                                            {
-                                                movie.videos.results?.filter(video => video.type === 'Trailer').slice(0, 5).map((item, i) => (
-                                                    <div key={item.id} className="mb-12">
-                                                        <div className="mb-6">
-                                                            <h2 className="font-bold">{item.name}</h2>
-                                                        </div>
-                                                        <iframe
-                                                            src={`https://www.youtube.com/embed/${item.key}`}
-                                                            height="300px"
-                                                            width="100%"
-                                                            title="video"
-                                                            className='rounded-md'
-                                                        ></iframe>
-                                                    </div>
-                                                ))
-                                            }
-                                        </div>
+                                        <VideoList videos={movie.videos.results?.filter(video => video.type === 'Trailer').slice(0, 5)}/>
                                     </div>
                                 </div>
                             </div>
