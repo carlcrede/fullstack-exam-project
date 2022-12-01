@@ -4,6 +4,7 @@ import { CreditsResponse, ShowResponse, VideosResponse } from '../types/request-
 import tvService from "../services/Tv.service";
 import CastList from "./CastList";
 import VideoList from "./VideoList";
+import GenreList from "./GenreList";
 
 const TvDetails = () => {
     const { id } = useParams();
@@ -29,18 +30,9 @@ const TvDetails = () => {
                                     <h1 className="text-5xl py-8">{tv?.name} ({tv?.first_air_date?.slice(0, 4)})</h1>
                                 </div>
                                 <div className="bg-black px-5 rounded-md">
-                                    <div className="py-4 flex gap-x-2">
-                                        {
-                                            tv?.genres && tv.genres.slice(0, 5).map((genre, i) => (
-                                                <span key={i}
-                                                    className="py-2 px-6 border-solid border-red-400 border-2 text-xs font-bold rounded-[30px]">{genre.name}</span>
-                                            ))
-                                        }
-                                    </div>
+                                    <GenreList genres={tv.genres?.slice(0, 5)}/>
                                     <p className="font-bold py-4">{tv?.overview}</p>
-                                    <h1 className="mb-1"><b>Original
-                                        language: {tv?.original_language?.toUpperCase()}</b>
-                                    </h1>
+                                    <h1 className="mb-1"><b>Original language: {tv?.original_language?.toUpperCase()}</b></h1>
                                     <h1 className="mb-1"><b>Seasons: {tv?.number_of_seasons} seasons </b></h1>
                                     <h1 className="mb-1"><b>Episodes: {tv?.number_of_episodes} episodes in total </b></h1>
                                     <h1 className="mb-1"><b>Rating: {tv?.vote_average?.toPrecision(2)} / 10</b> out of <b>{tv?.vote_count}</b> votes </h1>

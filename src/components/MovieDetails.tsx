@@ -4,11 +4,11 @@ import { CreditsResponse, MovieResponse, VideosResponse } from '../types/request
 import moviesService from "../services/Movies.service";
 import CastList from "./CastList";
 import VideoList from "./VideoList";
+import GenreList from "./GenreList";
 
 const MovieDetails = () => {
     const { id } = useParams();
     const [movie, setMovie] = useState<MovieResponse & { videos: VideosResponse } & { credits: CreditsResponse }>();
-
 
     useEffect(() => {
         moviesService.get(id!).then((response) => {
@@ -30,18 +30,9 @@ const MovieDetails = () => {
                                     <h1 className="text-5xl py-8">{movie?.title} ({movie?.release_date?.slice(0, 4)})</h1>
                                 </div>
                                 <div className="bg-black px-5 rounded-md">
-                                    <div className="py-4 flex gap-x-2">
-                                        {
-                                            movie.genres && movie.genres.slice(0, 5).map((genre, i) => (
-                                                <span key={genre.id}
-                                                    className="py-2 px-6 border-solid border-red-400 border-2 text-xs font-bold rounded-[30px]">{genre.name}</span>
-                                            ))
-                                        }
-                                    </div>
+                                    <GenreList genres={movie.genres?.slice(0, 5)}/>
                                     <p className="font-bold py-4">{movie?.overview}</p>
-                                    <h1 className="mb-1"><b>Original
-                                        language: {movie?.original_language?.toUpperCase()}</b>
-                                    </h1>
+                                    <h1 className="mb-1"><b>Original language: {movie?.original_language?.toUpperCase()}</b></h1>
                                     <h1 className="mb-1"><b>Adult only: {movie?.adult ? "yes" : "no"}</b></h1>
                                     <h1 className="mb-1"><b>Runtime: {movie?.runtime} mins</b></h1>
                                     <h1 className="mb-1"><b>Rating: {movie?.vote_average?.toPrecision(2)} / 10</b> out of <b>{movie?.vote_count}</b> votes </h1>
