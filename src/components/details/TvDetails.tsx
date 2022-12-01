@@ -5,6 +5,7 @@ import tvService from "../../services/Tv.service";
 import CastList from "./CastList";
 import VideoList from "./VideoList";
 import GenreList from "./GenreList";
+import FavoriteBtn from '../FavoriteBtn';
 
 const TvDetails = () => {
     const { id } = useParams();
@@ -30,7 +31,10 @@ const TvDetails = () => {
                                     <h1 className="text-5xl py-8">{tv?.name} ({tv?.first_air_date?.slice(0, 4)})</h1>
                                 </div>
                                 <div className="bg-black px-5 rounded-md">
-                                    <GenreList genres={tv.genres?.slice(0, 5)}/>
+                                    <div className="flex justify-between">
+                                        <GenreList genres={tv.genres?.slice(0, 5)}/>
+                                        <FavoriteBtn />
+                                    </div>
                                     <p className="font-bold py-4">{tv?.overview}</p>
                                     <h1 className="mb-1"><b>Original language: {tv?.original_language?.toUpperCase()}</b></h1>
                                     <h1 className="mb-1"><b>Seasons: {tv?.number_of_seasons} seasons </b></h1>

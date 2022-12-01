@@ -5,6 +5,7 @@ import moviesService from "../../services/Movies.service";
 import CastList from "./CastList";
 import VideoList from "./VideoList";
 import GenreList from "./GenreList";
+import FavoriteBtn from '../FavoriteBtn';
 
 const MovieDetails = () => {
     const { id } = useParams();
@@ -30,7 +31,10 @@ const MovieDetails = () => {
                                     <h1 className="text-5xl py-8">{movie?.title} ({movie?.release_date?.slice(0, 4)})</h1>
                                 </div>
                                 <div className="bg-black px-5 rounded-md">
-                                    <GenreList genres={movie.genres?.slice(0, 5)}/>
+                                    <div className="flex justify-between">
+                                        <GenreList genres={movie.genres?.slice(0, 5)}/>
+                                        <FavoriteBtn />
+                                    </div>
                                     <p className="font-bold py-4">{movie?.overview}</p>
                                     <h1 className="mb-1"><b>Original language: {movie?.original_language?.toUpperCase()}</b></h1>
                                     <h1 className="mb-1"><b>Adult only: {movie?.adult ? "yes" : "no"}</b></h1>
