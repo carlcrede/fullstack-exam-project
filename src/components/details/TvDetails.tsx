@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { CreditsResponse, ShowResponse, VideosResponse } from '../types/request-types';
-import tvService from "../services/Tv.service";
+import { CreditsResponse, ShowResponse, VideosResponse } from '../../types/request-types';
+import tvService from "../../services/Tv.service";
 import CastList from "./CastList";
 import VideoList from "./VideoList";
 import GenreList from "./GenreList";

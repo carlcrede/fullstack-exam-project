@@ -1,4 +1,4 @@
-import {Video} from "../types/request-types";
+import {Video} from "../../types/request-types";
 
 interface Props  {
     videos: Video[] | undefined

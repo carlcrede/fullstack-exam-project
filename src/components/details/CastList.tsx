@@ -1,4 +1,4 @@
-import {Cast} from "../types/request-types";
+import {Cast} from "../../types/request-types";
 
 interface Props  {
     cast: Cast[] | undefined

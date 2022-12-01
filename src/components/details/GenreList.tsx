@@ -1,5 +1,5 @@
-import {Cast} from "../types/request-types";
-import {Genre} from "../types/types";
+import {Cast} from "../../types/request-types";
+import {Genre} from "../../types/types";
 
 interface Props  {
     genres: Genre[] | undefined
