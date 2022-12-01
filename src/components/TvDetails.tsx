@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { CreditsResponse, ShowResponse, VideosResponse } from '../types/request-types';
 import tvService from "../services/Tv.service";
+import CastList from "./CastList";
 
 const TvDetails = () => {
     const { id } = useParams();
@@ -46,17 +47,7 @@ const TvDetails = () => {
                                         <div className="flex items-center justify-between">
                                             <h2 className="text-2xl font-bold py-4">Casts</h2>
                                         </div>
-                                        <div className="grid grid-cols-[repeat(auto-fill,_minmax(90px,_1fr))] gap-[10px]">
-                                            {
-                                                tv.credits.cast?.slice(0, 5).map((item, i) => (
-                                                    <div key={item.id}>
-                                                        <div className="pt-[160px] bg-cover mb-2 rounded-md"
-                                                            style={{ backgroundImage: `url('https://image.tmdb.org/t/p/w500/${item.profile_path}')` }}></div>
-                                                        <p className="text-xs font-bold">{item.name}</p>
-                                                    </div>
-                                                ))
-                                            }
-                                        </div>
+                                        <CastList cast={tv.credits.cast?.slice(0, 5)}/>
                                         <div className="mb-12 py-0 px-8">
                                             {
                                                 tv.videos.results?.filter(video => video.type === 'Trailer').slice(0, 5).map((item, i) => (
