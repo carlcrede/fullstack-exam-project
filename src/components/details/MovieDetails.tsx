@@ -33,7 +33,7 @@ const MovieDetails = () => {
                                 <div className="bg-black px-5 rounded-md">
                                     <div className="flex justify-between">
                                         <GenreList genres={movie.genres?.slice(0, 5)}/>
-                                        <FavoriteBtn media_type='movie' movieDbId={id!} />
+                                        <FavoriteBtn media_type='movie' movieDbId={id!} title={movie.title!} poster_path={movie.poster_path!} />
                                     </div>
                                     <p className="font-bold py-4">{movie?.overview}</p>
                                     <h1 className="mb-1"><b>Original language: {movie?.original_language?.toUpperCase()}</b></h1>

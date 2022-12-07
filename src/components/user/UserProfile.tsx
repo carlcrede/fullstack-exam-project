@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import UserService from "../../services/User.service"
+import { Link, useNavigate } from "react-router-dom";
+import UserService, { FavoriteProps } from "../../services/User.service"
 
 export type User = {
     username: string;
     email: string;
     profilePicture: string;
-    favorites: {
-        movieDbId: string;
-        media_type: 'movie' | 'tv';
-    }[];
+    favorites: FavoriteProps[];
 }
 
 const UserProfile = () => {
@@ -102,6 +99,21 @@ const UserProfile = () => {
                 </div>
                 <div className="col-span-2 bg-[#060D17]/50 w-full p-4 rounded-md">
                     <div className="text-2xl">My Favorites</div>
+                    {user?.favorites.length === 0 && (
+                        <div className="text-lg">You have no favorites yet.</div>
+                    )}
+                    {user?.favorites.length! > 0 && (
+                        <div className="grid grid-cols-4 gap-4">
+                            {user?.favorites.map(({media_type, movieDbId, title, poster_path}) => (
+                                <Link key={movieDbId} to={`/${media_type}/${movieDbId}`}>
+                                    <div className="bg-[#282c34] rounded-md p-4">
+                                        <img className="object-cover rounded-md" src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt="" />
+                                        <div className="text-lg">{title}</div>
+                                    </div>
+                                </Link>
+                                ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </>

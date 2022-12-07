@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import UserService from "../services/User.service";
+import UserService, { FavoriteProps } from "../services/User.service";
 import { type User } from "./user/UserProfile";
-interface Props {
-    movieDbId: string;
-    media_type: 'movie' | 'tv';
-}
 
-const FavoriteBtn: React.FC<Props> = (props) => {
+const FavoriteBtn: React.FC<FavoriteProps> = (props) => {
     const [isFavorite, setIsFavorite] = useState(false);
     
     // load user prpfile to check if movie is favorite
