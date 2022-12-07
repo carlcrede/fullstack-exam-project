@@ -67,7 +67,7 @@ const SearchBar = () => {
       </div>
       <div 
         id="searchResults" 
-        className={`${searchFocus ? 'block' : 'hidden'} z-10 absolute bg-[#282c34] w-1/3 backdrop-blur-sm bg-[#282c34] block p-3 rounded-md`}
+        className={`${searchFocus ? 'block' : 'hidden'} z-10 absolute w-1/3 backdrop-blur-sm bg-[#282c34] block p-3 rounded-md`}
       >
         {searchResults.slice(0, 5).map((item) => {
           return (

@@ -33,7 +33,7 @@ const TvDetails = () => {
                                 <div className="bg-black px-5 rounded-md">
                                     <div className="flex justify-between">
                                         <GenreList genres={tv.genres?.slice(0, 5)}/>
-                                        <FavoriteBtn />
+                                        <FavoriteBtn media_type='tv' movieDbId={id!} />
                                     </div>
                                     <p className="font-bold py-4">{tv?.overview}</p>
                                     <h1 className="mb-1"><b>Original language: {tv?.original_language?.toUpperCase()}</b></h1>
