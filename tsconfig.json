@@ -21,7 +21,8 @@
     "jsx": "react-jsx",
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "typeRoots": ["node_modules/yup"]
+    "typeRoots": ["node_modules/yup"],
+    "types":["node", "vite/client"]
   },
   "include": [
     "src"

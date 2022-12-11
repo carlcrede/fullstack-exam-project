@@ -104,7 +104,7 @@ const UserProfile = () => {
                     )}
                     {user?.favorites.length! > 0 && (
                         <div className="grid grid-cols-4 gap-4">
-                            {user?.favorites.map(({media_type, movieDbId, title, poster_path}) => (
+                            {user?.favorites.reverse().map(({media_type, movieDbId, title, poster_path}) => (
                                 <Link key={movieDbId} to={`/${media_type}/${movieDbId}`}>
                                     <div className="bg-[#282c34] rounded-md p-4">
                                         <img className="object-cover rounded-md" src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt="" />

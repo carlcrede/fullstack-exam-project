@@ -6,7 +6,6 @@ import { type User } from "./user/UserProfile";
 const FavoriteBtn: React.FC<FavoriteProps> = (props) => {
     const [isFavorite, setIsFavorite] = useState(false);
     
-    // load user prpfile to check if movie is favorite
     useEffect(() => {
         UserService.getUserProfile().then(
             (response) => {
